@@ -325,7 +325,51 @@ footer.bg-dark h5, footer.bg-dark p {
 
 /* Responsive: header nav pills on mobile */
 @media (max-width: 576px) {
-  .header-nav-pill { min-width: auto; padding: 8px 14px; font-size: 0.85rem; }
+  .header-nav-pill { min-width: auto; padding: 6px 10px; font-size: 0.78rem; }
+}
+
+/* Responsive: Header mobile */
+@media (max-width: 576px) {
+  header .me-3.d-flex.align-items-center.justify-content-center {
+    width: 36px !important;
+    height: 36px !important;
+  }
+  header img[alt*="Parapharmacy"] {
+    height: 40px !important;
+    max-width: 120px !important;
+  }
+}
+
+/* Responsive: Navbar mobile */
+@media (max-width: 991px) {
+  nav.navbar { min-height: auto !important; padding-top: 6px !important; padding-bottom: 6px !important; }
+  nav.navbar .navbar-brand img,
+  nav.navbar a[href="/"] img {
+    height: 60px !important;
+    max-width: 160px !important;
+  }
+}
+@media (max-width: 576px) {
+  nav.navbar a[href="/"] img {
+    height: 44px !important;
+    max-width: 120px !important;
+  }
+  nav.navbar .gap-3 { gap: 6px !important; }
+  nav.navbar .gap-2 { gap: 4px !important; }
+  nav.navbar .btn { font-size: 0.78rem !important; padding: 6px 10px !important; }
+  nav.navbar .rounded-pill.px-3 { padding-left: 10px !important; padding-right: 10px !important; }
+}
+
+/* Responsive: Hero section mobile */
+@media (max-width: 768px) {
+  .display-4 { font-size: 2rem !important; }
+  .lead.mx-auto { font-size: 0.95rem !important; }
+}
+@media (max-width: 576px) {
+  .display-4 { font-size: 1.5rem !important; letter-spacing: -0.5px !important; }
+  .lead.mx-auto { font-size: 0.88rem !important; }
+  section .rounded-pill input { font-size: 0.85rem !important; }
+  section .rounded-pill button span { display: none; }
 }
 
 /* Responsive: product card adjustments */

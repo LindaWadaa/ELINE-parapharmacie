@@ -144,7 +144,8 @@ function Home() {
                   boxShadow: '0 4px 12px rgba(46, 164, 79, 0.2)'
                 }}
               >
-                Rechercher
+                <i className="bi bi-search d-sm-none"></i>
+                <span className="d-none d-sm-inline">Rechercher</span>
               </button>
             </form>
           </div>
