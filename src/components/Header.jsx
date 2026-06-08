@@ -58,7 +58,7 @@ function Header() {
               ELINE
             </span>
             <span className="small text-muted fw-semibold uppercase tracking-wider" style={{ marginTop: '-4px' }}>
-              parapharmacie
+              para
             </span>
           </div>
         </div>

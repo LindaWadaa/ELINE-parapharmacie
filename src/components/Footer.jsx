@@ -50,7 +50,7 @@ function Footer() {
 
           {/* ── Contact ── */}
           <div className="col-12 col-md-3">
-            <h6 className="fw-bold mb-3" style={{ color: "#1b5e20" }}>ELINE parapharmacie</h6>
+            <h6 className="fw-bold mb-3" style={{ color: "#1b5e20" }}>ELINE para</h6>
             <div className="small d-flex flex-column gap-2" style={{ color: "#4a5568" }}>
               <div>Votre parapharmacie en ligne de confiance</div>
               <div>Produits bien-être, beauté et santé</div>
@@ -70,7 +70,7 @@ function Footer() {
         <div className="row">
           <div className="col text-center">
             <p className="small mb-0" style={{ color: "#4a5568" }}>
-              &copy; {new Date().getFullYear()} ELINE parapharmacie. Tous droits réservés.
+              &copy; {new Date().getFullYear()} ELINE para. Tous droits réservés.
             </p>
           </div>
         </div>

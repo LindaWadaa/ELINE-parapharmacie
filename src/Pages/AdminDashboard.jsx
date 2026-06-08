@@ -235,7 +235,7 @@ export default function AdminDashboard() {
           </div>
           <div>
             <div style={s.sidebarTitle}>ELINE Admin</div>
-            <div style={s.sidebarSub}>Parapharmacie</div>
+            <div style={s.sidebarSub}>Para</div>
           </div>
         </div>
 

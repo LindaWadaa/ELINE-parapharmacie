@@ -10,7 +10,7 @@ function About() {
     <div className="container py-5">
       {/* ABOUT SECTION */}
       <section className="mb-5 p-4 rounded shadow-sm bg-light">
-        <h2 className="mb-3 text-primary fw-bold">À propos de ELINE parapharmacie</h2>
+        <h2 className="mb-3 text-primary fw-bold">À propos de ELINE para</h2>
 
         <p className="fs-5">
           Cette application <strong>Parapharmacie</strong> offre une expérience simple, rapide

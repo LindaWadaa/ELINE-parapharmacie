@@ -45,7 +45,7 @@ export default function AdminLogin() {
             </svg>
           </div>
           <h1 style={styles.title}>Espace Admin</h1>
-          <p style={styles.subtitle}>ELINE Parapharmacie — Tableau de bord</p>
+          <p style={styles.subtitle}>ELINE Para — Tableau de bord</p>
         </div>
 
         {/* Form */}
