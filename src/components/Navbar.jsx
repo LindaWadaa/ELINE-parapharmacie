@@ -151,11 +151,6 @@ function Navbar() {
                 Catalogue
               </NavLink>
             </li>
-            <li className="nav-item d-lg-none">
-              <NavLink to="/contact" className={navLinkClass}>
-                Contact
-              </NavLink>
-            </li>
           </ul>
         </div>
       </div>
