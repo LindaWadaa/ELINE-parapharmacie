@@ -203,8 +203,30 @@ export default function AdminDashboard() {
 
   return (
     <div style={s.page}>
+      {/* Responsive styles for admin dashboard */}
+      <style>{`
+        @media (max-width: 768px) {
+          .admin-sidebar { display: none !important; }
+          .admin-main { padding: 16px !important; }
+          .admin-table-wrap { overflow-x: auto !important; }
+          .admin-table { min-width: 600px !important; }
+          .admin-filters { flex-direction: column !important; }
+          .admin-filters > div { min-width: 100% !important; }
+          .admin-stats { grid-template-columns: repeat(2, 1fr) !important; }
+          .admin-modal { max-width: 100% !important; margin: 0 8px !important; max-height: calc(100vh - 120px) !important; }
+          .admin-overlay { padding: 100px 8px 16px !important; align-items: stretch !important; }
+          .admin-topbar { flex-direction: column !important; align-items: stretch !important; }
+          .admin-topbar > div:last-child { justify-content: stretch !important; }
+          .admin-topbar button { flex: 1 !important; justify-content: center !important; }
+        }
+        @media (max-width: 480px) {
+          .admin-stats { grid-template-columns: 1fr 1fr !important; gap: 8px !important; }
+          .admin-stat-card { padding: 12px !important; gap: 10px !important; }
+          .admin-row { flex-direction: column !important; }
+        }
+      `}</style>
       {/* ── Sidebar ── */}
-      <aside style={s.sidebar}>
+      <aside className="admin-sidebar" style={s.sidebar}>
         <div style={s.sidebarLogo}>
           <div style={s.sidebarIcon}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -244,7 +266,7 @@ export default function AdminDashboard() {
       </aside>
 
       {/* ── Main ── */}
-      <main style={s.main}>
+      <main className="admin-main" style={s.main}>
         {/* Toast */}
         {toast && (
           <div style={{ ...s.toast, background: toast.type === "error" ? "rgba(239,68,68,0.95)" : "rgba(34,197,94,0.95)" }}>
@@ -253,7 +275,7 @@ export default function AdminDashboard() {
         )}
 
         {/* Header */}
-        <div style={s.topBar}>
+        <div className="admin-topbar" style={s.topBar}>
           <div>
             <h1 style={s.pageTitle}>Gestion des Produits</h1>
             <p style={s.pageSub}>{totalProducts} produit(s) dans la base</p>
@@ -277,14 +299,14 @@ export default function AdminDashboard() {
         </div>
 
         {/* Stats */}
-        <div style={s.statsGrid}>
+        <div className="admin-stats" style={s.statsGrid}>
           {[
             { label: "Total produits", value: totalProducts, icon: "📦", color: "#4ade80" },
             { label: "En promotion", value: promoCount, icon: "🏷️", color: "#f59e0b" },
             { label: "Catégories", value: categories, icon: "🗂️", color: "#60a5fa" },
             { label: "Valeur moy.", value: products.length ? (products.reduce((s, p) => s + Number(p.price || 0), 0) / products.length).toFixed(2) + " TND" : "—", icon: "💰", color: "#a78bfa" },
           ].map((stat) => (
-            <div key={stat.label} style={s.statCard}>
+            <div key={stat.label} className="admin-stat-card" style={s.statCard}>
               <div style={{ fontSize: "2rem" }}>{stat.icon}</div>
               <div>
                 <div style={{ ...s.statValue, color: stat.color }}>{stat.value}</div>
@@ -295,7 +317,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Filters */}
-        <div style={s.filtersRow}>
+        <div className="admin-filters" style={s.filtersRow}>
           <div style={s.searchWrap}>
             <svg style={{ position: "absolute", left: "14px", top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }} width="16" height="16" viewBox="0 0 24 24" fill="none">
               <circle cx="11" cy="11" r="8" stroke="#6b7280" strokeWidth="2"/>
@@ -316,7 +338,7 @@ export default function AdminDashboard() {
         </div>
 
         {/* Table */}
-        <div style={s.tableWrap}>
+        <div className="admin-table-wrap" style={s.tableWrap}>
           {loading ? (
             <div style={s.center}>
               <div style={s.spinnerLarge} />
@@ -328,7 +350,7 @@ export default function AdminDashboard() {
               <p style={{ color: "rgba(255,255,255,0.5)", marginTop: "8px" }}>Aucun produit trouvé</p>
             </div>
           ) : (
-            <table style={s.table}>
+            <table className="admin-table" style={s.table}>
               <thead>
                 <tr>
                   {["Image", "Nom", "Catégorie", "Sous-catégorie", "Prix", "Promo", "Actions"].map(h => (
@@ -401,8 +423,8 @@ export default function AdminDashboard() {
 
       {/* ── Add/Edit Modal ── */}
       {showModal && (
-        <div style={s.overlay} onClick={(e) => e.target === e.currentTarget && setShowModal(false)}>
-          <div style={s.modal}>
+        <div className="admin-overlay" style={s.overlay} onClick={(e) => e.target === e.currentTarget && setShowModal(false)}>
+          <div className="admin-modal" style={s.modal}>
             {/* Modal Header */}
             <div style={s.modalHeader}>
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -478,7 +500,7 @@ export default function AdminDashboard() {
                       <span style={s.sectionDot} />
                       Catégorisation
                     </div>
-                    <div style={s.row}>
+                  <div className="admin-row" style={s.row}>
                       <div style={{ ...s.formField, flex: 1 }}>
                         <label style={s.formLabel}>Catégorie *</label>
                         <select

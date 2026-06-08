@@ -152,11 +152,6 @@ function Navbar() {
               </NavLink>
             </li>
             <li className="nav-item d-lg-none">
-              <NavLink to="/about" className={navLinkClass}>
-                À propos
-              </NavLink>
-            </li>
-            <li className="nav-item d-lg-none">
               <NavLink to="/contact" className={navLinkClass}>
                 Contact
               </NavLink>

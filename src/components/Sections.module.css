@@ -14,6 +14,19 @@
   margin: 0 16px;
 }
 
+@media (max-width: 768px) {
+  .section {
+    padding: 40px 16px;
+    border-radius: 24px;
+    margin: 0 8px;
+  }
+  .sectionsContainer { gap: 40px; }
+  .sectionTitle { font-size: 1.5rem !important; }
+  .sectionHeader { margin-bottom: 24px; }
+  .tabsContainer { gap: 8px; }
+  .tab { font-size: 0.78rem; padding: 6px 14px; }
+}
+
 /* Alternating background themes for visual separation */
 .section:nth-child(odd) {
   background: linear-gradient(180deg, #f7fdfa 0%, #eefbf3 100%);
