@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useCart } from './CartContext';
 
-function ProductCard({ product }) {
+function ProductCard({ product, imageHeight = 200 }) {
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const imageUrl =
@@ -42,7 +42,7 @@ function ProductCard({ product }) {
       )}
 
       {/* Product Image */}
-      <div style={{ height: "200px", overflow: "hidden", backgroundColor: "#f8f9fa" }}>
+      <div style={{ height: `${imageHeight}px`, overflow: "hidden", backgroundColor: "#f8f9fa" }}>
         <img
           src={imageUrl}
           alt={product.name}

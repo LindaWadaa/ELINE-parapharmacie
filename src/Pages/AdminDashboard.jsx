@@ -898,7 +898,7 @@ const s = {
     borderRadius: "50%", background: "#4ade80", flexShrink: 0,
   },
   row: { display: "flex", gap: "14px", flexWrap: "wrap" },
-  formGrid: { display: "grid", gridTemplateColumns: "1fr 1fr", gap: "16px" },
+  formGrid: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "16px" },
   formField: { display: "flex", flexDirection: "column", gap: "6px" },
   formLabel: {
     color: "rgba(255,255,255,0.6)", fontSize: "0.78rem",

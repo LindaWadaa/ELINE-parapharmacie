@@ -8,8 +8,18 @@ function Navbar() {
   const [animateBadge, setAnimateBadge] = useState(false);
 
   useEffect(() => {
-    const isLogged = localStorage.getItem("loggedIn") === "true";
-    setLoggedIn(isLogged);
+    const syncAuthState = () => {
+      setLoggedIn(localStorage.getItem("loggedIn") === "true");
+    };
+
+    syncAuthState();
+    window.addEventListener("storage", syncAuthState);
+    window.addEventListener("auth-change", syncAuthState);
+
+    return () => {
+      window.removeEventListener("storage", syncAuthState);
+      window.removeEventListener("auth-change", syncAuthState);
+    };
   }, []);
 
   useEffect(() => {
@@ -23,6 +33,7 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("loggedIn");
     setLoggedIn(false);
+    window.dispatchEvent(new Event("auth-change"));
   };
 
   const navLinkClass = "header-nav-pill";
@@ -60,6 +71,12 @@ function Navbar() {
             </NavLink>
             <NavLink to="/catalogue" className={navLinkClass}>
               Catalogue
+            </NavLink>
+            <NavLink to="/promotions" className={navLinkClass}>
+              Promotions
+            </NavLink>
+            <NavLink to="/coffrets" className={navLinkClass}>
+              Nos coffrets
             </NavLink>
           </div>
         </div>
@@ -149,6 +166,16 @@ function Navbar() {
             <li className="nav-item d-lg-none">
               <NavLink to="/catalogue" className={navLinkClass}>
                 Catalogue
+              </NavLink>
+            </li>
+            <li className="nav-item d-lg-none">
+              <NavLink to="/promotions" className={navLinkClass}>
+                Promotions
+              </NavLink>
+            </li>
+            <li className="nav-item d-lg-none">
+              <NavLink to="/coffrets" className={navLinkClass}>
+                Nos coffrets
               </NavLink>
             </li>
           </ul>

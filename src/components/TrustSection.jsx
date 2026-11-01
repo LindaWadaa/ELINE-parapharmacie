@@ -15,11 +15,9 @@ function TrustSection() {
       title: "Service client",
       desc: (
         <>
-          Contactez nous sur le numéro :
+          Notre équipe est à votre écoute pour vous accompagner
           <br />
-          Livraison: (+216) 22 155 054
-          <br />
-          Réclamation: (+216) 96 255 343
+          Livraison et réclamations suivies avec attention
         </>
       ),
     },

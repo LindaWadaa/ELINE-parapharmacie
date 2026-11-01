@@ -2,9 +2,31 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/productCard";
 import { supabase } from "../supabase";
+import { PROMOTION_PRODUCTS } from "../data/promotions";
+
+const catalogCategory = (product) => {
+  const text = [
+    product.name,
+    product.description,
+    product.category,
+    product.category_public,
+    product.subcategory,
+    product.image_url,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  if (/(cheveu|shampoo|capill|anti[- ]?chute|pellicul|masque capillaire)/i.test(text)) return "HAIR";
+  if (/(bébé|bebe|enfant|biberon|pédiat|pediat|couche|maman)/i.test(text)) return "BABY & MOM";
+  if (/(maquillage|mascara|rouge à lèvres|rouge a levres|fond de teint|vernis)/i.test(text)) return "MAKEUP";
+  if (/(visage|anti[- ]?âge|anti[- ]?age|rides|sérum|serum|acide hyaluronique|nettoyant visage)/i.test(text)) return "FACE";
+  if (/(hygiène|hygiene|dent|brosse à dents|brosse a dents|désinfect|desinfect|intime)/i.test(text)) return "HYGIENE";
+  return "BODY";
+};
 
 function Catalogue() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const searchParamValue = searchParams.get("search") || "";
 
   const [products, setProducts] = useState([]);
@@ -29,13 +51,8 @@ function Catalogue() {
     "BODY",
     "HAIR",
     "BABY & MOM",
-    "FOOD SUPPLEMENTS",
-    "DIETARY SUPPLEMENTS",
     "HYGIENE",
-    "MEN",
-    "SUN CARE",
     "MAKEUP",
-    "PROMO",
   ];
 
   const categoryLabels = {
@@ -81,6 +98,14 @@ function Catalogue() {
       "Anti-rougeurs & peaux sensibles",
     ],
 
+    HAIR: [
+      "Shampooings",
+      "Soins des cheveux",
+      "Anti-chute",
+      "Masques capillaires",
+      "Coffrets cheveux",
+    ],
+
     BODY: [
       "Hydratation & nutrition du corps",
       "Soin des pieds",
@@ -122,6 +147,10 @@ function Catalogue() {
       "Soins des mains",
     ],
 
+    MEN: ["Soins visage homme", "Hygiène homme", "Bien-être homme"],
+    "SUN CARE": ["Protection solaire", "Après-soleil", "Solaire enfants"],
+    MAKEUP: ["Yeux", "Teint", "Lèvres"],
+    PROMO: ["Packs & offres"],
     All: ["Tous"],
   };
 
@@ -155,20 +184,24 @@ function Catalogue() {
 
   // Apply filters & sorting
   useEffect(() => {
-    let results = products.filter((product) => {
-      const productCategory = String(product.category || "").toLowerCase().trim();
+    const catalogueProducts = [...products, ...PROMOTION_PRODUCTS];
+
+    let results = catalogueProducts.filter((product) => {
+      const productCategory = catalogCategory(product);
       const productSubcategory = String(product.subcategory || "").toLowerCase().trim();
       const query = String(searchTerm || "").toLowerCase().trim();
+      const productName = String(product.name || "").toLowerCase();
 
       const matchesSearch =
         query === "" ||
-        product.name.toLowerCase().includes(query) ||
+        productName.includes(query) ||
         String(product.description || "").toLowerCase().includes(query) ||
-        productCategory.includes(query) ||
+        productCategory.toLowerCase().includes(query) ||
         productSubcategory.includes(query);
 
       const matchesCategory =
-        selectedCategory === "All" || productCategory === selectedCategory.toLowerCase().trim();
+        selectedCategory === "All" ||
+        productCategory === selectedCategory;
 
       const matchesSubcategory =
         selectedSubcategory === "All" || productSubcategory === selectedSubcategory.toLowerCase().trim();
@@ -186,7 +219,7 @@ function Catalogue() {
     }
 
     setFilteredProducts(results);
-  }, [products, searchTerm, selectedCategory, priceRange, sortOrder]);
+  }, [products, searchTerm, selectedCategory, selectedSubcategory, priceRange, sortOrder]);
 
   return (
     <div className="container-fluid py-4">
@@ -305,7 +338,7 @@ function Catalogue() {
 
         {/* PRODUCTS GRID */}
         <div className="col-md-9">
-          <div className="d-flex justify-content-between align-items-center mb-4">
+          <div className="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-4">
             <h2 className="text-primary fw-bold mb-0">
               {selectedCategory === "All" ? "TOUS LES PRODUITS" : categoryLabels[selectedCategory] || selectedCategory}
             </h2>
@@ -343,7 +376,10 @@ function Catalogue() {
             <div className="row g-3">
               {filteredProducts.map((product) => (
                 <div key={product.id} className="col-sm-6 col-lg-4 col-xl-3">
-                  <ProductCard product={product} />
+                  <ProductCard
+                    product={product}
+                    imageHeight={selectedCategory === "MAKEUP" ? 280 : 200}
+                  />
                 </div>
               ))}
             </div>

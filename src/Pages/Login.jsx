@@ -54,6 +54,7 @@ export default function Login() {
 // chack if email and password are valid 
     if (email === savedUser.email && password === savedUser.password) {
       localStorage.setItem("loggedIn", "true");
+      window.dispatchEvent(new Event("auth-change"));
       navigate("/");
     } else {
       setError("E-mail ou mot de passe invalide.");
@@ -70,12 +71,7 @@ export default function Login() {
             PARAPHARMACIE EN LIGNE
           </div>
           <div className="d-flex align-items-center">
-            <Link to="/" className="text-decoration-none me-2">
-              <i className="bi bi-house me-1"></i>
-              Accueil
-            </Link>
-            <span className="text-muted mx-2">|</span>
-            <span className="ms-2 text-primary fw-semibold">Se connecter</span>
+            <span className="text-primary fw-semibold">Se connecter</span>
           </div>
         </div>
       </div>
@@ -145,22 +141,6 @@ export default function Login() {
                 <div className="mb-4">
                   <button type="submit" className="btn btn-primary w-100 py-3 fw-bold text-uppercase">
                     SE CONNECTER
-                  </button>
-                </div>
-
-                {/* Divider */}
-                <div className="position-relative text-center my-4">
-                  <hr />
-                  <span className="bg-white px-3 text-muted position-absolute top-50 start-50 translate-middle small">
-                    OU
-                  </span>
-                </div>
-
-                {/* Facebook Button */}
-                <div className="mb-4">
-                  <button type="button" className="btn btn-outline-primary w-100 py-3">
-                    <i className="bi bi-facebook me-2"></i>
-                    Se connecter avec Facebook
                   </button>
                 </div>
 

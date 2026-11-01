@@ -249,3 +249,35 @@
   background: #d4f5e1;
   color: #1b5e20;
 }
+
+@media (max-width: 576px) {
+  .overlay {
+    padding: 8px;
+  }
+
+  .modal {
+    max-height: 94vh;
+    border-radius: 18px;
+    padding: 20px 16px;
+  }
+
+  .closeButton {
+    top: 14px;
+    right: 14px;
+  }
+
+  .title {
+    padding-right: 38px;
+    font-size: 1.25rem;
+  }
+
+  .summaryBox {
+    padding: 12px;
+    margin-bottom: 18px;
+  }
+
+  .summaryItem {
+    gap: 10px;
+    align-items: flex-start;
+  }
+}

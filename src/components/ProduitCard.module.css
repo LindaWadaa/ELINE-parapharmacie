@@ -174,3 +174,37 @@
 .btnOrder:active {
   transform: translateY(0);
 }
+
+@media (max-width: 576px) {
+  .imageContainer {
+    height: 170px;
+  }
+
+  .content {
+    padding: 14px;
+  }
+
+  .title {
+    font-size: 0.95rem;
+  }
+
+  .description {
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+  }
+
+  .price {
+    font-size: 1.1rem;
+  }
+
+  .buttonGroup {
+    flex-direction: column;
+  }
+
+  .btnCart,
+  .btnOrder {
+    flex: 1;
+    min-height: 38px;
+    font-size: 0.8rem;
+  }
+}

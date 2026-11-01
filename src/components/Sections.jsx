@@ -1,48 +1,58 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { supabase } from '../supabase';
 import ProduitCard from './ProduitCard';
+import { AUDIENCE_PRODUCTS } from '../data/audienceProducts';
 import styles from './Sections.module.css';
+
+const AUDIENCE_SUBCATEGORIES = [
+  'All',
+  'Crèmes / soins',
+  'Matériel',
+  'Claquettes / chaussons',
+  'Bien-être'
+];
+const MAX_PRODUCTS_PER_SECTION = 6;
 
 const AUDIENCES = [
   {
     id: 'bebes',
-    title: 'Bébés (0-3 ans)',
-    subtitle: 'La douceur pure pour les premiers instants de la vie.',
+    title: 'Bébés',
+    subtitle: '0-3 ans',
     icon: 'bi-baby-carriage',
     dbValue: 'Bébés (0-3 ans)',
-    subcategories: ['All', 'Crèmes / soins', 'Cuillères / accessoires', 'Vêtements', 'Matériel']
+    subcategories: AUDIENCE_SUBCATEGORIES
   },
   {
     id: 'enfants',
-    title: 'Enfants (3-12 ans)',
-    subtitle: 'Tout pour les accompagner dans leur croissance et leurs jeux.',
+    title: 'Enfants',
+    subtitle: '3-12 ans',
     icon: 'bi-balloon-heart',
     dbValue: 'Enfants (3-12 ans)',
-    subcategories: ['All', 'Crèmes / soins', 'Chaussures', 'Vêtements', 'Bien-être']
+    subcategories: AUDIENCE_SUBCATEGORIES
   },
   {
     id: 'femmes',
     title: 'Femmes',
-    subtitle: 'Des rituels de beauté et de bien-être qui révèlent votre éclat.',
+    subtitle: 'Soins & Éclat',
     icon: 'bi-flower1',
     dbValue: 'Femmes',
-    subcategories: ['All', 'Crèmes / soins', 'Maquillages', 'Nature', 'Bien-être']
+    subcategories: AUDIENCE_SUBCATEGORIES
   },
   {
     id: 'hommes',
     title: 'Hommes',
-    subtitle: 'Soins quotidiens et essentiels conçus pour la vitalité masculine.',
+    subtitle: 'Performance',
     icon: 'bi-shield-shaded',
     dbValue: 'Hommes',
-    subcategories: ['All', 'Crèmes / soins', 'Bien-être', 'Routine du matin']
+    subcategories: AUDIENCE_SUBCATEGORIES
   },
   {
     id: 'seniors',
-    title: 'Personnes âgées',
-    subtitle: 'Le confort, l\'autonomie et la forme au fil des années.',
+    title: 'Séniors',
+    subtitle: 'Santé & Forme',
     icon: 'bi-heart-pulse-fill',
     dbValue: 'Personnes âgées',
-    subcategories: ['All', 'Crèmes / soins', 'Matériel', 'Claquettes / chaussons', 'Bien-être']
+    subcategories: AUDIENCE_SUBCATEGORIES
   }
 ];
 
@@ -106,17 +116,22 @@ function Sections({ onOrderClick }) {
   // Load products from Supabase or Fallback
   useEffect(() => {
     async function fetchProducts() {
+      const localProducts = AUDIENCE_PRODUCTS;
+      setProducts(localProducts);
+      setLoading(false);
+
       try {
-        setLoading(true);
-        const { data, error } = await supabase
-          .from('products')
-          .select('*');
+        const request = supabase.from('products').select('*');
+        const timeout = new Promise((_, reject) => {
+          window.setTimeout(() => reject(new Error('Supabase request timed out')), 5000);
+        });
+        const { data, error } = await Promise.race([request, timeout]);
 
         if (error) throw error;
 
-        setProducts(data || []);
-      } catch { } finally {
-        setLoading(false);
+        setProducts([...(data || []), ...localProducts]);
+      } catch (error) {
+        console.error('Unable to load Supabase homepage products:', error);
       }
     }
 
@@ -157,9 +172,41 @@ function Sections({ onOrderClick }) {
   };
 
   const getFilteredProducts = (dbCategory, filterValue) => {
-    const sectionProducts = products.filter(p => p.category_public === dbCategory);
+    const sectionProducts = products.filter((product) => {
+      if (product.category_public === dbCategory) return true;
+
+      const text = [
+        product.name,
+        product.description,
+        product.category,
+        product.subcategory
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
+
+      if (/(bébé|bebe|biberon|pédiat|pediat|couche)/i.test(text)) {
+        return dbCategory === 'Bébés (0-3 ans)';
+      }
+      if (/(enfant|kids|jouet|école|ecole)/i.test(text)) {
+        return dbCategory === 'Enfants (3-12 ans)';
+      }
+      if (/(homme|masculin|barbe|sport|performance)/i.test(text)) {
+        return dbCategory === 'Hommes';
+      }
+      if (/(femme|féminin|feminin|visage|beauté|beaute|intime)/i.test(text)) {
+        return dbCategory === 'Femmes';
+      }
+
+      return dbCategory === 'Personnes âgées' && (
+        product.category === 'FOOD SUPPLEMENTS' ||
+        product.category === 'HYGIENE'
+      );
+    });
     if (filterValue === 'All') return sectionProducts;
-    return sectionProducts.filter(p => p.subcategory === filterValue);
+    return sectionProducts.filter(
+      (product) => (product.audienceSubcategory || product.subcategory) === filterValue
+    );
   };
 
   if (loading) {
@@ -174,7 +221,8 @@ function Sections({ onOrderClick }) {
   return (
     <div className={styles.sectionsContainer}>
       {AUDIENCES.map((audience) => {
-        const filtered = getFilteredProducts(audience.dbValue, activeFilters[audience.id]);
+        const filtered = getFilteredProducts(audience.dbValue, activeFilters[audience.id])
+          .slice(0, MAX_PRODUCTS_PER_SECTION);
 
         return (
           <section

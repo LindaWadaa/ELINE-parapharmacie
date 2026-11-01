@@ -6,6 +6,8 @@ import Login from "./Pages/Login";
 import Register from "./Pages/register";
 import Home from "./Pages/Home";
 import Catalogue from "./Pages/Catalogue";
+import Promotions from "./Pages/Promotions";
+import Coffrets from "./Pages/Coffrets";
 import About from "./Pages/About";
 import Contact from "./Pages/Contact";
 import ProductDetails from "./Pages/ProductDetails";
@@ -87,6 +89,8 @@ function AppContent() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/catalogue" element={<Catalogue />} />
+          <Route path="/promotions" element={<Promotions />} />
+          <Route path="/coffrets" element={<Coffrets />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

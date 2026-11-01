@@ -8,6 +8,25 @@
   --mint: #b8ebb0;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+}
+
 body {
   font-family: 'Outfit', sans-serif !important;
   color: #1b3a24;
@@ -358,6 +377,20 @@ footer.bg-dark h5, footer.bg-dark p {
   nav.navbar .gap-2 { gap: 4px !important; }
   nav.navbar .btn { font-size: 0.78rem !important; padding: 6px 10px !important; }
   nav.navbar .rounded-pill.px-3 { padding-left: 10px !important; padding-right: 10px !important; }
+  nav.navbar .container-fluid {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  nav.navbar .navbar-collapse {
+    border-top: 1px solid rgba(46, 164, 79, 0.1);
+    margin-top: 6px !important;
+    padding-top: 8px;
+  }
+  nav.navbar .navbar-collapse .header-nav-pill {
+    width: 100%;
+    justify-content: flex-start;
+    border-radius: 12px;
+  }
 }
 
 /* Responsive: Hero section mobile */
@@ -376,6 +409,82 @@ footer.bg-dark h5, footer.bg-dark p {
 @media (max-width: 576px) {
   .card-body { padding: 0.75rem !important; }
   .card-body .fs-5 { font-size: 1rem !important; }
+  .container,
+  .container-fluid {
+    --bs-gutter-x: 1rem;
+  }
+  .contact-page .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .row > [class*="col-"] {
+    min-width: 0;
+  }
+  .btn {
+    white-space: normal;
+  }
+}
+
+/* Shared small-screen layout safeguards */
+@media (max-width: 767.98px) {
+  .category-nav {
+    margin-inline: -4px;
+  }
+
+  .category-pill {
+    min-height: 36px;
+  }
+
+  .sectionsContainer {
+    gap: 24px;
+  }
+
+  .section {
+    padding: 28px 12px;
+    margin-inline: 4px;
+  }
+
+  .sectionHeader {
+    margin-bottom: 20px;
+  }
+
+  .tabsContainer {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding: 2px 2px 8px;
+    margin-bottom: 24px;
+    scrollbar-width: none;
+  }
+
+  .tabsContainer::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    flex: 0 0 auto;
+  }
+
+  .contact-layout {
+    width: 100%;
+  }
+
+  .product-gallery-main {
+    height: min(400px, 82vw) !important;
+  }
+
+  .product-quantity-row {
+    align-items: flex-start !important;
+  }
+
+  .product-quantity-row .btn-group {
+    max-width: 100%;
+  }
+
+  .product-quantity-row .btn-group .btn {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
 }
 
 /* Responsive: admin stat card fix on small screens */

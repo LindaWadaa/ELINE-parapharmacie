@@ -27,6 +27,23 @@
   .tab { font-size: 0.78rem; padding: 6px 14px; }
 }
 
+@media (max-width: 576px) {
+  .iconWrapper {
+    width: 52px;
+    height: 52px;
+    font-size: 1.45rem;
+    margin-bottom: 12px;
+  }
+
+  .sectionSubtitle {
+    font-size: 0.9rem;
+  }
+
+  .grid {
+    gap: 14px;
+  }
+}
+
 /* Alternating background themes for visual separation */
 .section:nth-child(odd) {
   background: linear-gradient(180deg, #f7fdfa 0%, #eefbf3 100%);

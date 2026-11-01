@@ -99,7 +99,7 @@ function ProductDetails() {
         {addedToCart && (
           <div
             className="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
-            style={{ zIndex: 9999, minWidth: '300px' }}
+            style={{ zIndex: 9999, width: 'min(420px, calc(100vw - 24px))', maxWidth: 'calc(100vw - 24px)' }}
             role="alert"
           >
             <strong>✓ Ajouté au panier !</strong> {quantity} x {product.name}
@@ -112,7 +112,7 @@ function ProductDetails() {
             <div className="card shadow-sm border-0 p-3">
               {/* Main Image */}
               <div
-                className="mb-3"
+                className="mb-3 product-gallery-main"
                 style={{
                   height: '400px',
                   overflow: 'hidden',
@@ -188,7 +188,7 @@ function ProductDetails() {
               {/* Quantity Selector */}
               <div className="mb-4">
                 <h6 className="fw-bold mb-3">Quantité</h6>
-                <div className="d-flex align-items-center gap-3">
+                <div className="d-flex align-items-center gap-3 flex-wrap product-quantity-row">
                   <div className="btn-group" role="group">
                     <button
                       className="btn btn-outline-secondary btn-lg px-4"

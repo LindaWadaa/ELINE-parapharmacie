@@ -1,5 +1,23 @@
 import { useState } from "react";
 
+const contactDetails = [
+  {
+    icon: "bi-geo-alt",
+    title: "Notre adresse",
+    text: "Nabeul, Tunisie",
+  },
+  {
+    icon: "bi-clock",
+    title: "Nos horaires",
+    text: "24h / 24 — 7j / 7",
+  },
+  {
+    icon: "bi-truck",
+    title: "Livraison",
+    text: "Partout en Tunisie",
+  },
+];
+
 export default function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -8,17 +26,15 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-    if (!name || !email || !message) {
+    if (!name.trim() || !email.trim() || !message.trim()) {
       setError("Tous les champs sont obligatoires.");
       return;
     }
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError("Veuillez entrer une adresse email valide.");
       return;
     }
@@ -26,404 +42,442 @@ export default function Contact() {
     setError("");
     setIsSubmitting(true);
 
-    // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
 
-      // Reset form after success message
       setTimeout(() => {
         setName("");
         setEmail("");
         setMessage("");
         setIsSubmitted(false);
       }, 3000);
-    }, 1500);
+    }, 1000);
   };
 
   return (
-    <div className="contact-container">
-      <div className="contact-card">
-        <div className="contact-header">
-          <h2 className="contact-title">Contactez-nous</h2>
-          <p className="contact-subtitle">
-            Nous serons ravis de répondre à vos questions
+    <section className="contact-page">
+      <div className="container py-4 py-lg-5">
+        <div className="contact-hero text-center mb-4 mb-lg-5">
+          <span className="contact-eyebrow">ELINE para</span>
+          <h1 className="contact-title">Nous sommes à votre écoute</h1>
+          <p className="contact-subtitle mb-0">
+            Une question sur un produit ou votre commande ? Notre équipe vous
+            répond avec plaisir.
           </p>
         </div>
 
-        {isSubmitted ? (
-          <div className="success-message">
-            <div className="success-icon">✓</div>
-            <h3>Message envoyé avec succès !</h3>
-            <p>Nous vous répondrons dans les plus brefs délais.</p>
-          </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="contact-form">
-            <div className="form-group">
-              <label htmlFor="name" className="form-label">
-                Nom complet
-              </label>
-              <input
-                id="name"
-                type="text"
-                className="form-input"
-                placeholder="Votre nom"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <div className="input-icon">👤</div>
+        <div className="contact-layout">
+          <aside className="contact-intro">
+            <div className="intro-icon">
+              <i className="bi bi-chat-heart" aria-hidden="true"></i>
             </div>
+            <h2>Parlons de vos besoins</h2>
+            <p>
+              Chez ELINE para, nous vous accompagnons pour trouver les soins
+              et produits adaptés à votre quotidien.
+            </p>
 
-            <div className="form-group">
-              <label htmlFor="email" className="form-label">
-                Adresse email
-              </label>
-              <input
-                id="email"
-                type="email"
-                className="form-input"
-                placeholder="Votre email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <div className="input-icon">✉️</div>
+            <div className="contact-details">
+              {contactDetails.map((detail) => (
+                <div className="contact-detail" key={detail.title}>
+                  <span className="detail-icon">
+                    <i className={`bi ${detail.icon}`} aria-hidden="true"></i>
+                  </span>
+                  <div>
+                    <strong>{detail.title}</strong>
+                    <span>{detail.text}</span>
+                  </div>
+                </div>
+              ))}
             </div>
+          </aside>
 
-            <div className="form-group">
-              <label htmlFor="message" className="form-label">
-                Message
-              </label>
-              <textarea
-                id="message"
-                className="form-textarea"
-                placeholder="Votre message..."
-                rows="5"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-              ></textarea>
-              <div className="textarea-icon">📝</div>
-            </div>
-
-            {error && (
-              <div className="error-message">
-                <span className="error-icon">⚠️</span>
-                {error}
+          <div className="contact-form-card">
+            {isSubmitted ? (
+              <div className="success-message" role="status">
+                <div className="success-icon">
+                  <i className="bi bi-check-lg" aria-hidden="true"></i>
+                </div>
+                <h2>Message envoyé !</h2>
+                <p className="mb-0">
+                  Merci pour votre message. Nous vous répondrons dans les plus
+                  brefs délais.
+                </p>
               </div>
+            ) : (
+              <>
+                <div className="form-heading">
+                  <h2>Envoyez-nous un message</h2>
+                  <p>Les champs marqués d’un astérisque sont obligatoires.</p>
+                </div>
+
+                <form onSubmit={handleSubmit} noValidate>
+                  <div className="form-group">
+                    <label htmlFor="name">
+                      Nom complet <span aria-hidden="true">*</span>
+                    </label>
+                    <div className="input-wrapper">
+                      <i className="bi bi-person" aria-hidden="true"></i>
+                      <input
+                        id="name"
+                        type="text"
+                        placeholder="Votre nom"
+                        value={name}
+                        onChange={(event) => setName(event.target.value)}
+                        autoComplete="name"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="email">
+                      Adresse email <span aria-hidden="true">*</span>
+                    </label>
+                    <div className="input-wrapper">
+                      <i className="bi bi-envelope" aria-hidden="true"></i>
+                      <input
+                        id="email"
+                        type="email"
+                        placeholder="vous@exemple.com"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                        autoComplete="email"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="message">
+                      Votre message <span aria-hidden="true">*</span>
+                    </label>
+                    <div className="input-wrapper textarea-wrapper">
+                      <i className="bi bi-pencil" aria-hidden="true"></i>
+                      <textarea
+                        id="message"
+                        placeholder="Comment pouvons-nous vous aider ?"
+                        rows="5"
+                        value={message}
+                        onChange={(event) => setMessage(event.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  {error && (
+                    <div className="form-alert" role="alert">
+                      <i className="bi bi-exclamation-circle" aria-hidden="true"></i>
+                      {error}
+                    </div>
+                  )}
+
+                  <button type="submit" className="submit-btn" disabled={isSubmitting}>
+                    {isSubmitting ? (
+                      <>
+                        <span className="spinner" aria-hidden="true"></span>
+                        Envoi en cours...
+                      </>
+                    ) : (
+                      <>
+                        Envoyer le message
+                        <i className="bi bi-arrow-right" aria-hidden="true"></i>
+                      </>
+                    )}
+                  </button>
+                </form>
+              </>
             )}
-
-            <button
-              type="submit"
-              className="submit-btn"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? (
-                <>
-                  <span className="spinner"></span>
-                  Envoi en cours...
-                </>
-              ) : (
-                "Envoyer le message"
-              )}
-            </button>
-
-            <div className="form-footer">
-              <p className="form-note">
-                <span className="required">*</span> Tous les champs sont
-                obligatoires
-              </p>
-            </div>
-          </form>
-        )}
+          </div>
+        </div>
       </div>
 
-      <style jsx>{`
-        .contact-container {
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 20px;
-          background: #ffffff;
-          font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      <style>{`
+        .contact-page {
+          min-height: 640px;
+          background:
+            radial-gradient(circle at 8% 12%, rgba(129, 199, 132, 0.16), transparent 28%),
+            linear-gradient(180deg, #f8fdf9 0%, #ffffff 70%);
+          color: #234b2a;
         }
 
-        .contact-card {
-          background: white;
-          border-radius: 20px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-          padding: 40px;
-          width: 100%;
-          max-width: 500px;
-          border: 1px solid #e9ecef;
-          animation: fadeIn 0.5s ease-out;
+        .contact-hero {
+          max-width: 720px;
+          margin-inline: auto;
         }
 
-        @keyframes fadeIn {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .contact-header {
-          text-align: center;
-          margin-bottom: 30px;
+        .contact-eyebrow {
+          display: inline-block;
+          color: #2e7d32;
+          font-size: 0.78rem;
+          font-weight: 800;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          margin-bottom: 0.7rem;
         }
 
         .contact-title {
-          color: #2d3436;
-          font-size: 2.2rem;
-          margin-bottom: 10px;
-          font-weight: 700;
+          color: #1b5e20;
+          font-size: clamp(2rem, 4vw, 3rem);
+          font-weight: 800;
+          margin-bottom: 0.75rem;
         }
 
         .contact-subtitle {
-          color: #636e72;
-          font-size: 1rem;
-          line-height: 1.5;
+          color: #5f7563;
+          font-size: 1.05rem;
+          line-height: 1.7;
         }
 
-        .contact-form {
+        .contact-layout {
+          display: grid;
+          grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+          max-width: 1060px;
+          margin: 0 auto;
+          overflow: hidden;
+          border: 1px solid rgba(46, 125, 50, 0.12);
+          border-radius: 24px;
+          box-shadow: 0 18px 45px rgba(27, 94, 32, 0.1);
+          background: #fff;
+        }
+
+        .contact-intro {
+          padding: clamp(2rem, 5vw, 3.5rem);
+          background: linear-gradient(145deg, #eaf7ed, #d9f0df);
+        }
+
+        .intro-icon {
+          display: grid;
+          place-items: center;
+          width: 58px;
+          height: 58px;
+          margin-bottom: 1.5rem;
+          border-radius: 18px;
+          background: #2e7d32;
+          color: #fff;
+          font-size: 1.55rem;
+          box-shadow: 0 8px 18px rgba(46, 125, 50, 0.2);
+        }
+
+        .contact-intro h2,
+        .form-heading h2 {
+          color: #1b5e20;
+          font-size: 1.45rem;
+          font-weight: 800;
+        }
+
+        .contact-intro > p {
+          color: #507057;
+          line-height: 1.7;
+          margin-bottom: 2rem;
+        }
+
+        .contact-details {
+          display: grid;
+          gap: 1.2rem;
+        }
+
+        .contact-detail {
           display: flex;
-          flex-direction: column;
-          gap: 24px;
+          align-items: center;
+          gap: 0.9rem;
         }
 
-        .form-group {
-          position: relative;
+        .detail-icon {
+          display: grid;
+          place-items: center;
+          flex: 0 0 38px;
+          height: 38px;
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.8);
+          color: #2e7d32;
         }
 
-        .form-label {
+        .contact-detail strong,
+        .contact-detail span:not(.detail-icon) {
           display: block;
-          margin-bottom: 8px;
-          color: #2d3436;
-          font-weight: 600;
-          font-size: 0.95rem;
         }
 
-        .form-input,
-        .form-textarea {
-          width: 100%;
-          padding: 16px 16px 16px 48px;
-          border: 2px solid #e9ecef;
-          border-radius: 12px;
-          font-size: 1rem;
-          transition: all 0.3s ease;
-          box-sizing: border-box;
-          background-color: #f8f9fa;
-          color: #2d3436;
-        }
-
-        .form-input:focus,
-        .form-textarea:focus {
-          outline: none;
-          border-color: #4263eb;
-          background-color: white;
-          box-shadow: 0 0 0 3px rgba(66, 99, 235, 0.1);
-        }
-
-        .form-input::placeholder,
-        .form-textarea::placeholder {
-          color: #adb5bd;
-        }
-
-        .form-textarea {
-          resize: vertical;
-          min-height: 120px;
-          font-family: inherit;
-        }
-
-        .input-icon,
-        .textarea-icon {
-          position: absolute;
-          left: 16px;
-          top: 42px;
-          font-size: 1.2rem;
-          opacity: 0.7;
-        }
-
-        .textarea-icon {
-          top: 42px;
-        }
-
-        .error-message {
-          background-color: #fff5f5;
-          color: #e53e3e;
-          padding: 14px 16px;
-          border-radius: 10px;
-          font-size: 0.95rem;
-          display: flex;
-          align-items: center;
-          animation: shake 0.5s ease-in-out;
-          border-left: 4px solid #e53e3e;
-        }
-
-        @keyframes shake {
-          0%,
-          100% {
-            transform: translateX(0);
-          }
-          25% {
-            transform: translateX(-5px);
-          }
-          75% {
-            transform: translateX(5px);
-          }
-        }
-
-        .error-icon {
-          margin-right: 10px;
-          font-size: 1.2rem;
-        }
-
-        .submit-btn {
-          background: #4263eb;
-          color: white;
-          border: none;
-          padding: 18px;
-          border-radius: 12px;
-          font-size: 1.1rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-        }
-
-        .submit-btn:hover:not(:disabled) {
-          background: #364fc7;
-          transform: translateY(-2px);
-          box-shadow: 0 7px 14px rgba(66, 99, 235, 0.2);
-        }
-
-        .submit-btn:active:not(:disabled) {
-          transform: translateY(0);
-        }
-
-        .submit-btn:disabled {
-          opacity: 0.7;
-          cursor: not-allowed;
-        }
-
-        .spinner {
-          width: 20px;
-          height: 20px;
-          border: 3px solid rgba(255, 255, 255, 0.3);
-          border-radius: 50%;
-          border-top-color: white;
-          animation: spin 1s ease-in-out infinite;
-        }
-
-        @keyframes spin {
-          to {
-            transform: rotate(360deg);
-          }
-        }
-
-        .form-footer {
-          text-align: center;
-          margin-top: 10px;
-        }
-
-        .form-note {
-          color: #868e96;
+        .contact-detail strong {
+          color: #285d30;
           font-size: 0.9rem;
         }
 
-        .required {
-          color: #e53e3e;
-          font-weight: bold;
+        .contact-detail div > span {
+          color: #66836b;
+          font-size: 0.88rem;
+          margin-top: 0.15rem;
         }
 
-        .success-message {
-          text-align: center;
-          padding: 40px 20px;
-          animation: fadeIn 0.5s ease-out;
+        .contact-form-card {
+          padding: clamp(2rem, 5vw, 3.5rem);
+          background: #fff;
         }
 
-        .success-icon {
-          background: #37b24d;
-          color: white;
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
+        .form-heading {
+          margin-bottom: 1.7rem;
+        }
+
+        .form-heading p {
+          color: #7a8a7d;
+          font-size: 0.88rem;
+          margin: 0.35rem 0 0;
+        }
+
+        .form-group {
+          margin-bottom: 1.15rem;
+        }
+
+        .form-group label {
+          display: block;
+          color: #315d38;
+          font-size: 0.9rem;
+          font-weight: 700;
+          margin-bottom: 0.45rem;
+        }
+
+        .form-group label span {
+          color: #c62828;
+        }
+
+        .input-wrapper {
+          position: relative;
+        }
+
+        .input-wrapper > i {
+          position: absolute;
+          top: 50%;
+          left: 1rem;
+          color: #65a36b;
+          transform: translateY(-50%);
+          pointer-events: none;
+        }
+
+        .input-wrapper input,
+        .input-wrapper textarea {
+          width: 100%;
+          border: 1px solid #d6e5d8;
+          border-radius: 12px;
+          background: #fbfefb;
+          color: #274c2d;
+          font: inherit;
+          padding: 0.82rem 1rem 0.82rem 2.8rem;
+          transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .input-wrapper textarea {
+          min-height: 130px;
+          resize: vertical;
+          padding-top: 0.9rem;
+        }
+
+        .textarea-wrapper > i {
+          top: 1rem;
+          transform: none;
+        }
+
+        .input-wrapper input:focus,
+        .input-wrapper textarea:focus {
+          outline: none;
+          border-color: #4caf50;
+          box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.13);
+          background: #fff;
+        }
+
+        .input-wrapper input::placeholder,
+        .input-wrapper textarea::placeholder {
+          color: #a4b4a6;
+        }
+
+        .form-alert {
+          display: flex;
+          align-items: center;
+          gap: 0.55rem;
+          padding: 0.75rem 0.9rem;
+          border-radius: 10px;
+          background: #fff4f3;
+          color: #b3261e;
+          font-size: 0.88rem;
+          margin-bottom: 1rem;
+        }
+
+        .submit-btn {
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: 2.5rem;
-          margin: 0 auto 25px;
-          animation: pop 0.5s ease-out;
+          gap: 0.6rem;
+          width: 100%;
+          border: 0;
+          border-radius: 12px;
+          background: #2e7d32;
+          color: #fff;
+          font-weight: 700;
+          padding: 0.9rem 1.2rem;
+          transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        @keyframes pop {
-          0% {
-            transform: scale(0);
-          }
-          80% {
-            transform: scale(1.1);
-          }
-          100% {
-            transform: scale(1);
-          }
+        .submit-btn:hover:not(:disabled) {
+          background: #1b5e20;
+          box-shadow: 0 8px 18px rgba(46, 125, 50, 0.2);
+          transform: translateY(-1px);
         }
 
-        .success-message h3 {
-          color: #2d3436;
-          font-size: 1.8rem;
-          margin-bottom: 10px;
+        .submit-btn:disabled {
+          cursor: not-allowed;
+          opacity: 0.7;
         }
 
-        .success-message p {
-          color: #636e72;
-          font-size: 1rem;
-          line-height: 1.5;
+        .spinner {
+          width: 1rem;
+          height: 1rem;
+          border: 2px solid rgba(255, 255, 255, 0.4);
+          border-top-color: #fff;
+          border-radius: 50%;
+          animation: contact-spin 0.8s linear infinite;
         }
 
-        /* Responsive design */
-        @media (max-width: 600px) {
-          .contact-container {
-            padding: 10px;
-            background: #f8f9fa;
-          }
-
-          .contact-card {
-            padding: 30px 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border: 1px solid #dee2e6;
-          }
-
-          .contact-title {
-            font-size: 1.8rem;
-          }
-
-          .form-input,
-          .form-textarea {
-            padding: 14px 14px 14px 44px;
-          }
-
-          .input-icon,
-          .textarea-icon {
-            left: 14px;
-            top: 40px;
-          }
+        @keyframes contact-spin {
+          to { transform: rotate(360deg); }
         }
 
-        @media (max-width: 400px) {
-          .contact-card {
-            padding: 25px 15px;
+        .success-message {
+          display: grid;
+          place-items: center;
+          min-height: 390px;
+          text-align: center;
+          color: #66836b;
+        }
+
+        .success-message h2 {
+          color: #1b5e20;
+          font-weight: 800;
+          margin: 1rem 0 0.5rem;
+        }
+
+        .success-icon {
+          display: grid;
+          place-items: center;
+          width: 76px;
+          height: 76px;
+          border-radius: 50%;
+          background: #e4f4e7;
+          color: #2e7d32;
+          font-size: 2.2rem;
+        }
+
+        @media (max-width: 767.98px) {
+          .contact-layout {
+            grid-template-columns: 1fr;
+            border-radius: 18px;
           }
 
-          .contact-title {
-            font-size: 1.6rem;
+          .contact-intro {
+            padding-bottom: 2rem;
+          }
+
+          .contact-form-card {
+            padding-top: 2.2rem;
           }
         }
       `}</style>
-    </div>
+    </section>
   );
 }

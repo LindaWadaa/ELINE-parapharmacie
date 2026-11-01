@@ -65,6 +65,7 @@ export default function Register() {
 
     localStorage.setItem("user", JSON.stringify(user));
     localStorage.setItem("loggedIn", "true");
+    window.dispatchEvent(new Event("auth-change"));
     
     // Redirect to home
     navigate("/");
@@ -164,22 +165,6 @@ export default function Register() {
                 <div className="mb-4">
                   <button type="submit" className="btn btn-success w-100 py-3 fw-bold text-uppercase">
                     CRÉER UN COMPTE
-                  </button>
-                </div>
-
-                {/* Divider */}
-                <div className="position-relative text-center my-4">
-                  <hr />
-                  <span className="bg-white px-3 text-muted position-absolute top-50 start-50 translate-middle small">
-                    OU
-                  </span>
-                </div>
-
-                {/* Facebook Button */}
-                <div className="mb-4">
-                  <button type="button" className="btn btn-outline-primary w-100 py-3">
-                    <i className="bi bi-facebook me-2"></i>
-                    Se connecter avec Facebook
                   </button>
                 </div>
 

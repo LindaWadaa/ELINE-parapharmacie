@@ -288,3 +288,28 @@
 .checkoutBtn:active {
   transform: translateY(0);
 }
+
+@media (max-width: 576px) {
+  .header,
+  .body,
+  .footer {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 1.1rem;
+  }
+
+  .itemCard {
+    gap: 10px;
+  }
+
+  .itemImage {
+    width: 58px;
+    height: 58px;
+  }
+
+  .itemControls {
+    gap: 8px;
+  }
+}

@@ -180,12 +180,6 @@ insert into products (name, description, price, category, category_public, subca
   15.410, 'BABY & MOM', 'Bébés (0-3 ans)', 'Bain & soins bébé',
   '/assets/prod12.avif', null
 ),
-(
-  'Gum Ortho Soft Toothbrush 124',
-  'Specialized toothbrush with v-shaped bristles for cleaning around orthodontic appliances.',
-  11.650, 'HYGIENE', null, 'Hygiène intime',
-  '/assets/prod13.webp', null
-),
 
 -- ── Bébés (0-3 ans) ──────────────────────────────────────────
 (
@@ -194,58 +188,16 @@ insert into products (name, description, price, category, category_public, subca
   18.500, 'BABY & MOM', 'Bébés (0-3 ans)', 'Crèmes / soins',
   'https://images.unsplash.com/photo-1515488042361-404e9250afef?w=400&q=80', null
 ),
-(
-  'Biberon Anti-Colique Easy Active 270ml',
-  'Tétine débit 2 ultra douce. Favorise une transition douce entre l''allaitement et le biberon.',
-  24.900, 'BABY & MOM', 'Bébés (0-3 ans)', 'Cuillères / accessoires',
-  'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=400&q=80', null
-),
-(
-  'Thermomètre Médical Pédiatrique Soft-Tip',
-  'Thermomètre rectal et sous-axillaire à embout souple pour une mesure sûre et rapide.',
-  29.900, 'BABY & MOM', 'Bébés (0-3 ans)', 'Matériel',
-  'https://images.unsplash.com/photo-1584017911766-d451b3d0e843?w=400&q=80', null
-),
-(
-  'Body en Coton Biologique Lot de 3',
-  'Manches longues, boutons pressions à l''entrejambe pour un change facile et un confort optimal.',
-  35.000, 'BABY & MOM', 'Bébés (0-3 ans)', 'Vêtements',
-  'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=80', null
-),
 
 -- ── Enfants (3-12 ans) ───────────────────────────────────────
-(
-  'Shampoing Démêlant Cerise & Amande Douce',
-  'Ne pique pas les yeux. Formule biodégradable qui laisse les cheveux soyeux et parfumés.',
-  14.800, 'HAIR', 'Enfants (3-12 ans)', 'Shampooings',
-  'https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=400&q=80', null
-),
 (
   'Gummies Multivitaminés Vitalité Kids',
   'Contient 12 vitamines et minéraux essentiels pour soutenir la croissance et l''énergie quotidienne.',
   32.000, 'FOOD SUPPLEMENTS', 'Enfants (3-12 ans)', 'Vitamines',
   'https://images.unsplash.com/photo-1628243382943-f11406126bb8?w=400&q=80', null
 ),
-(
-  'Baskets Légères Respirantes ActivePlay',
-  'Fermeture scratch pratique pour l''école et le sport. Semelle antidérapante.',
-  49.000, 'BABY & MOM', 'Enfants (3-12 ans)', 'Équipement bébé',
-  'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80', null
-),
 
 -- ── Femmes ────────────────────────────────────────────────────
-(
-  'Sérum Anti-Rides Concentré Acide Hyaluronique',
-  'Repulpe la peau, lisse les ridules et procure une hydratation intense longue durée.',
-  78.500, 'FACE', 'Femmes', 'Anti-âge & anti-rides',
-  'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=400&q=80', null
-),
-(
-  'Mascara Volumateur Bio Noir Intense',
-  'Formule naturelle enrichie en huile de ricin pour renforcer et allonger les cils.',
-  36.900, 'MAKEUP', 'Femmes', 'Yeux',
-  'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&q=80', null
-),
 (
   'Infusion Detox & Éclat aux Herbes Bio',
   'Mélange apaisant de menthe, romarin et pissenlit pour purifier l''organisme de l''intérieur.',
@@ -261,43 +213,13 @@ insert into products (name, description, price, category, category_public, subca
 
 -- ── Hommes ────────────────────────────────────────────────────
 (
-  'Gel Hydratant Anti-Fatigue 24H',
-  'Soin énergisant enrichi en magnésium et vitamine C pour combattre le teint terne et les cernes.',
-  45.000, 'MEN', 'Hommes', 'Soins visage homme',
-  'https://images.unsplash.com/photo-1617897903246-719242758050?w=400&q=80', null
-),
-(
   'Huile Barbe Adoucissante Bois de Cèdre',
   'Nourrit les poils en profondeur et hydrate la peau sous la barbe sans effet gras.',
   32.500, 'MEN', 'Hommes', 'Rasage & barbe',
   'https://images.unsplash.com/photo-1626015713026-d837d172406f?w=400&q=80', null
 ),
-(
-  'Gel Douche Purifiant 3-en-1 Charbon Actif',
-  'Nettoie le visage, le corps et les cheveux. Élimine les impuretés, parfum boisé ultra frais.',
-  16.900, 'BODY', 'Hommes', 'Hydratation & nutrition du corps',
-  'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?w=400&q=80', null
-),
 
 -- ── Personnes âgées ──────────────────────────────────────────
-(
-  'Baume Articulaire Fort Harpagophytum',
-  'Soulage les raideurs articulaires et améliore la souplesse. Effet chauffant réconfortant.',
-  39.900, 'BODY', 'Personnes âgées', 'Soins des articulations',
-  'https://images.unsplash.com/photo-1550572017-edd951b55104?w=400&q=80', null
-),
-(
-  'Tensiomètre de Bras Électronique Automatique',
-  'Écran rétroéclairé, détection d''arythmie. Enregistrement des mesures pour 2 utilisateurs.',
-  129.000, 'BODY', 'Personnes âgées', 'Soins du corps',
-  'https://images.unsplash.com/photo-1603398938378-e54eab446dde?w=400&q=80', null
-),
-(
-  'Chaussons Confort Ergonomiques Ajustables',
-  'Chaussures d''intérieur extensibles adaptées aux pieds gonflés ou sensibles. Semelles antidérapantes.',
-  59.000, 'BODY', 'Personnes âgées', 'Soins du corps',
-  'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&q=80', null
-),
 (
   'Complexe Magnésium Marin & Vitamine B6',
   'Soutient la fonction musculaire et nerveuse. Réduit la fatigue et régule le sommeil.',
