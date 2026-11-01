@@ -97,12 +97,18 @@ function OrderModal({ product, onClose }) {
       }
 
       // 3. Insert order items
-      const itemsPayload = itemsToOrder.map((item) => ({
-        order_id: orderId,
-        product_id: item.id,
-        quantity: item.quantity,
-        price: item.price
-      }));
+      const itemsPayload = itemsToOrder.map((item) => {
+        const numericProductId = Number(item.id);
+
+        return {
+          order_id: orderId,
+          // Promotions and coffrets use text identifiers and are not stored in
+          // the Supabase products table. Keep the nullable FK empty for them.
+          product_id: Number.isInteger(numericProductId) ? numericProductId : null,
+          quantity: item.quantity,
+          price: item.price
+        };
+      });
 
       // Only attempt insert if we have a valid client connection
       if (!supabase.supabaseUrl.includes('placeholder')) {
